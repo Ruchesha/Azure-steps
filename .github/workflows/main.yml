@@ -5,17 +5,19 @@ on:
     branches:
       - main
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   azure_login:
     runs-on: ubuntu-latest
-
     steps:
-      # Step 1: Checkout the repository
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Step 2: Azure Login
-      - name: Log in to Azure
+      # Ensure GitHub can write an id-token for Azure login
+      - name: Azure Login
         uses: azure/login@v1
         with:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
@@ -23,6 +25,8 @@ jobs:
           client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
-      # Step 3: Run a command
-      - name: Run echo Hello World
+      # Sample hello world command after login
+      - name: Run Hello World
         run: echo "Hello, World!"
+
+
