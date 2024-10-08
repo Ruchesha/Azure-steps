@@ -39,13 +39,19 @@ jobs:
         run: |
           docker --version
 
-      - name: Build Docker Image
+      - name: Pull Nginx Docker Image
         run: |
-          docker build -t ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/nginx:latest .
+          docker pull nginx:latest
 
+      # Tag the Nginx image for ACR
+      - name: Tag Docker Image
+        run: |
+          docker tag nginx:latest ${{ env.AZURE_CONTAINER_REGISTRY }}/nginx:latest
+
+      # Push the tagged Nginx image to ACR
       - name: Push Docker Image to ACR
         run: |
-          docker push ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/nginx:latest
+          docker push ${{ env.AZURE_CONTAINER_REGISTRY }}/nginx:latest
  
 
 
