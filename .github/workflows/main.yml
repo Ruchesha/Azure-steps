@@ -28,20 +28,4 @@ jobs:
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
-       # Step 2: Login to Azure Container Registry (ACR)
-      - name: Azure Container Registry Login
-        run: |
-          az acr login --name ${{ env.AZURE_CONTAINER_REGISTRY }}
-
-      # Build docker image
-      - name: Build Docker Image
-        run: |
-          docker build -t ${{ secrets.AZURE_CONTAINER_REGISTRY }}.azurecr.io/nginx:latest .
-
-      # Push the Docker image to ACR
-      - name: Push Docker Image to ACR
-        run: |
-          docker push ${{ secrets.AZURE_CONTAINER_REGISTRY }}.azurecr.io/nginx:latest
-
-
 
