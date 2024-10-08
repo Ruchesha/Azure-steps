@@ -1,4 +1,4 @@
-name: Azure Login and Hello World
+name: Azure Login 
 
 on:
   push:
