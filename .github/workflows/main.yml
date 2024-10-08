@@ -1,4 +1,4 @@
-name: Azure Login 
+name: Azure Container App Deployment
 
 on:
   push:
