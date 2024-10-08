@@ -13,7 +13,7 @@ jobs:
   azure_login:
     runs-on: ubuntu-latest
     env:
-      AZURE_CONTAINER_REGISTRY: devopsdemoregistry.azurecr.io
+      AZURE_CONTAINER_REGISTRY: devopsdemoregistry
   
     steps:
       - name: Checkout code
@@ -38,4 +38,14 @@ jobs:
       - name: Verify Docker Installation
         run: |
           docker --version
+
+      - name: Build Docker Image
+        run: |
+          docker build -t ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/nginx:latest .
+
+      - name: Push Docker Image to ACR
+        run: |
+          docker push ${{ env.AZURE_CONTAINER_REGISTRY }}.azurecr.io/nginx:latest
+ 
+
 
