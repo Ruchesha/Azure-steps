@@ -35,9 +35,9 @@ jobs:
           az acr login --name ${{ env.AZURE_CONTAINER_REGISTRY }}
 
       # Build docker image
-      - name: Verify Docker Installation
+      - name: login to registry through token
         run: |
-          docker --version
+          docker login -u github -p ${{ secrets.REGISTRY_TOKEN }} devopsdemoregistry.azurecr.io
 
       - name: Pull Nginx Docker Image
         run: |
