@@ -14,6 +14,10 @@ jobs:
     runs-on: ubuntu-latest
     env:
       AZURE_CONTAINER_REGISTRY: devopsdemoregistry
+      CONTAINER_APP_NAME: appcontainerdemo
+      RESOURCE_GROUP: Azure-project
+      REGION: eastus
+      VNET_NAME: demovnet
   
     steps:
       - name: Checkout code
@@ -52,6 +56,14 @@ jobs:
       - name: Push Docker Image to ACR
         run: |
           docker push devopsdemoregistry.azurecr.io/nginx:latest
+
+
+      - name: Deploy to Azure Container Apps
+        run: |
+          az containerapp update \
+          --name appcontainerdemo \
+          --resource-group Azure-project \
+          --image ${{ env.AZURE_CONTAINER_REGISTRY }}/nginx:latest \
  
 
 
