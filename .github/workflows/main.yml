@@ -34,4 +34,10 @@ jobs:
         run: |
           az acr login --name ${{ env.AZURE_CONTAINER_REGISTRY }}
 
+      # Build docker image
+      - name: Build Docker Image
+        run: |
+          docker build -t ${{ secrets.AZURE_CONTAINER_REGISTRY }}.azurecr.io/nginx:latest .
+
+
 
